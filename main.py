@@ -10,7 +10,7 @@ from torch.utils.data import sampler
 import torchvision.datasets as dset
 
 from model import get_model
-# import torchvision.transforms as T
+import torchvision.transforms as T
 
 # import numpy as np
 
@@ -30,6 +30,7 @@ def main(args):
         print('Error: CUDA library not available on system')
         return
 
+    global gpu_dtype
     gpu_dtype = torch.cuda.FloatTensor
 
     # load model
@@ -62,7 +63,7 @@ def train(loader_train, model, criterion, optimizer, epoch):
     model.train()
     for t, (X, y) in enumerate(loader_train):
         X_var = Variable(X.type(gpu_dtype))
-        y_var = Variable(y.type(gpu_dtype))
+        y_var = Variable(y.type(gpu_dtype)).long()
 
         scores = model(X_var)
 
