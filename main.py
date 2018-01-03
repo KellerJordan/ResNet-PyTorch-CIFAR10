@@ -8,26 +8,34 @@ from torch.utils.data import DataLoader
 from torch.utils.data import sampler
 
 import torchvision.datasets as dset
+
+from model import get_model
 # import torchvision.transforms as T
 
 # import numpy as np
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('data', default='./dataset', help='path to dataset')
-parser.add_argument('weight_decay', default=0.0, help='parameter to decay weights')
-parser.add_argument('num_epochs', default=10, help='number of epochs to train for')
-parser.add_argument('print_every', default=100, help='number of iterations to wait before printing')
+parser.add_argument('--data-dir', default='./dataset', type=str,
+                    help='path to dataset')
+parser.add_argument('--weight-decay', default=0.0, type=float,
+                    help='parameter to decay weights')
+parser.add_argument('--num-epochs', default=10, type=int,
+                    help='number of epochs to train for')
+parser.add_argument('--print-every', default=100, type=int,
+                    help='number of iterations to wait before printing')
 
-def main():
-    global args
-    args = parser.parse_args()
+def main(args):
+    if not torch.cuda.is_available():
+        print('Error: CUDA library not available on system')
+        return
+
     gpu_dtype = torch.cuda.FloatTensor
 
     # load model
-    # model = get_model()
+    model = get_model()
     # model.cuda()
-    # model = model.type(gpu_dtype)
+    model = model.type(gpu_dtype)
 
     criterion = nn.CrossEntropyLoss().cuda()
     optimizer = optim.Adam(model.parameters(),
@@ -96,3 +104,7 @@ class ChunkSampler(sampler.Sampler):
     
     def __len__(self):
         return self.num_samples
+
+if __name__ == '__main__':
+    args = parser.parse_args()
+    main(args)

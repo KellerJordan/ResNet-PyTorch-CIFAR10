@@ -1,13 +1,10 @@
 import torch
 import torch.nn as nn
-import torch.optim as optim
 from torch.autograd import Variable
-from torch.utils.data import DataLoader, sampler
 
-import torchvision.datasets as dset
 import torchvision.transforms as T
 
-import numpy as np
+# import numpy as np
 
 
 def get_model():
@@ -23,3 +20,8 @@ def get_model():
     )
 
     return model_base
+
+class Flatten(nn.Module):
+    def forward(self, x):
+        N, C, H, W = x.size()
+        return x.view(N, -1)
