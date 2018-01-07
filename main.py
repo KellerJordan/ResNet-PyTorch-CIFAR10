@@ -32,6 +32,7 @@ def main(args):
         print('Error: CUDA library not available on system')
         return
 
+    global gpu_dtype
     gpu_dtype = torch.cuda.FloatTensor
 
     # load model
