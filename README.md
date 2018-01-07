@@ -11,7 +11,7 @@ To train the network, use the following command:
 ### Default Hyperparameters
 
 Hyperparameter | Default Value | Description
-- | - | -
+| - | - | - |
 `n` | 5 | parameter controlling depth of network given structure described in paper
 `res_option` | `A` | projection method when number of residual channels increases
 `batch_size` | 128 | -
