@@ -77,7 +77,7 @@ class ResBlock(nn.Module):
         return out
 
 
-# various options for changing number of filters in residual connection
+# various projection options to change number of filters in residual connection
 # option A from paper
 class IdentityPadding(nn.Module):
     def __init__(self, num_filters, channels_in, stride):
@@ -102,8 +102,9 @@ class ConvProjection(nn.Module):
         out = self.conv(x)
         return out
 
-# my own experimental option C
+# experimental option C
 class AvgPoolPadding(nn.Module):
+
     def __init__(self, num_filters, channels_in, stride):
         super(AvgPoolPadding, self).__init__()
         self.identity = nn.AvgPool2d(stride, stride=stride)
