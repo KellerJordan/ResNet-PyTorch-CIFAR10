@@ -26,6 +26,10 @@ parser.add_argument('--print-every', default=100, type=int,
                     help='number of iterations to wait before printing')
 parser.add_argument('-n', default=5, type=int,
                     help='value of n to use for resnet configuration (see https://arxiv.org/pdf/1512.03385.pdf for details)')
+parser.add_argument('--use-dropout', default=False, const=True, nargs='?',
+                    help='whether to use dropout in network')
+parser.add_argument('--res-option', default='A', type=str,
+                    help='which projection method to use for changing number of channels in residual connections')
 
 def main(args):
     # define transforms for normalization and data augmentation
@@ -52,7 +56,7 @@ def main(args):
     loader_test = DataLoader(cifar10_test, batch_size=args.batch_size)
     
     # load model
-    model = ResNet(args.n, res_option='C')
+    model = ResNet(args.n, res_option=args.res_option, use_dropout=args.use_dropout)
     
     param_count = get_param_count(model)
     print('Parameter count: %d' % param_count)
@@ -68,7 +72,7 @@ def main(args):
     # setup loss function
     criterion = nn.CrossEntropyLoss().cuda()
     # train model
-    SCHEDULE_EPOCHS = [20, 10, 5] # divide lr by 10 after each number of epochs
+    SCHEDULE_EPOCHS = [50, 5, 5] # divide lr by 10 after each number of epochs
 #     SCHEDULE_EPOCHS = [100, 50, 50] # divide lr by 10 after each number of epochs
     learning_rate = 0.1
     for num_epochs in SCHEDULE_EPOCHS:
