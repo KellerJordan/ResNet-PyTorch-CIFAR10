@@ -1,6 +1,6 @@
 # PyTorch-ResNet-CIFAR10
 
-This is a PyTorch implementation of Residual Networks as described in the paper [Deep Residual Learning for Image Recognition](https://arxiv.org/abs/1512.03385) by Microsoft Research Asia. It follows the description of ResNet configuration on page 7 of the paper for the CIFAR-10 image classification task, and allows any value of n as described in the paper.
+This is a PyTorch implementation of Residual Networks as described in the paper [Deep Residual Learning for Image Recognition](https://arxiv.org/abs/1512.03385) by Microsoft Research Asia. It is designed for the CIFAR-10 image classification task, following the ResNet architecture described on page 7 of the paper. This version allows use of dropout, arbitrary value of n, and a custom residual projection option.
 
 #### Motivation
 
@@ -24,4 +24,4 @@ n | 5 | parameter controlling depth of network given structure described in pape
 
 ## Results
 
-Using `n=9` with the residual connection type (A) and no dropout, the network achieves a test accuracy of 91.69%. This is somewhat lower than the result reported in the paper, likely because I used fewer training iterations due to compute limitations.
+Using `n=9` with otherwise default hyperparameters, the network achieves a test accuracy of 91.69%. This is somewhat lower than the result reported in the paper, likely because I used fewer training iterations due to compute limitations.
