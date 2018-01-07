@@ -1,6 +1,10 @@
 # PyTorch-ResNet-CIFAR10
 
-This is a PyTorch implementation of Residual Networks as described in the paper [Deep Residual Learning for Image Recognition](https://arxiv.org/abs/1512.03385) by Microsoft Research Asia. It follows the description of ResNet configuration on page 7 of the paper for the CIFAR-10 image classification task, and allows any value of _n_(determining the number of layers) to be entered from the command line.
+This is a PyTorch implementation of Residual Networks as described in the paper [Deep Residual Learning for Image Recognition](https://arxiv.org/abs/1512.03385) by Microsoft Research Asia. It follows the description of ResNet configuration on page 7 of the paper for the CIFAR-10 image classification task, and allows any value of n as described in the paper.
+
+#### Motivation
+
+I completed this project in order to gain a better understanding of residual connections, which inspire the design of many state-of-the-art convnets at the present moment, as well as the gradient degradation problem. Having my own custom implementation made it easier to experiment with dropout and custom projection methods, and gave me practice with PyTorch.
 
 ## Usage
 
@@ -12,12 +16,12 @@ To train the network, use the following command:
 
 Hyperparameter | Default Value | Description
 | - | - | - |
-`n` | 5 | parameter controlling depth of network given structure described in paper
-`res_option` | `A` | projection method when number of residual channels increases
+n | 5 | parameter controlling depth of network given structure described in paper
+`res_option` | A | projection method when number of residual channels increases
 `batch_size` | 128 | -
 `weight_decay` | 0.0001 | -
-`use_dropout` | `False` | -
+`use_dropout` | False | -
 
 ## Results
 
-Using `n=9` with the residual connection type (A) and no dropout, the network achieves a test accuracy of .
+Using `n=9` with the residual connection type (A) and no dropout, the network achieves a test accuracy of 91.69%. This is somewhat lower than the result reported in the paper, likely because I used fewer training iterations due to compute limitations.
